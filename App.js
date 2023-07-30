@@ -8,6 +8,7 @@ const Stack = createStackNavigator();
 
 const App = () => {
   return (
+    // use the Navigation Container to navigate between the MainScreen and AddorderedScreen for that i use Stack Navigator
     <NavigationContainer>
       <Stack.Navigator initialRouteName="MainScreen">
         <Stack.Screen

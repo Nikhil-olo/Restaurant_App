@@ -3,17 +3,19 @@ import { View, FlatList, Text, TouchableOpacity, StyleSheet } from 'react-native
 import { Checkbox } from 'react-native-paper';
 
 const MainScreen = ({navigation, route}) => {
+// State to hold the list of orders
   const [orders, setOrders] = useState([
     { id: 1, customer: 'John Doe', phone: '123-456-7890', tableId: 'Table 1', dishes: ['Pizza', 'Coke'], completed: false },
     { id: 2, customer: 'Jane Smith', phone: '987-654-3210', tableId: 'Table 2', dishes: ['Burger', 'Coffee'], completed: true },
   ]);
-
+// UseEffect to add new orders to the existing list when passed as params from AddOrderScreen
   useEffect(()=>{
     if (route.params?.newOrder){
         setOrders((prevOrders) => [...prevOrders, route.params.newOrder])
     }
   }, [route.params?.newOrder]);
 
+// Function to handle marking an order as complete or incomplete
   const handleCompleteOrder = (id) => {
     setOrders((prevOrders) =>
       prevOrders.map((order) =>
@@ -21,11 +23,11 @@ const MainScreen = ({navigation, route}) => {
       )
     );
   };
-
+// Function to handle deleting an order 
   const handleDeleteOrder = (id) => {
     setOrders((prevOrders) => prevOrders.filter((order) => order.id !== id));
   };
-
+//Function to render each order item
   const renderItem = ({ item }) => {
     return (
       <View style={[styles.orderItem, item.completed && styles.completedOrder]}>
@@ -47,6 +49,8 @@ const MainScreen = ({navigation, route}) => {
       </View>
     );
 };
+
+// Function to handle navigating to the AddOrderScreen
 const handleAddOrder=()=>{
     navigation.navigate('AddOrderScreen');
 }
@@ -64,6 +68,7 @@ const handleAddOrder=()=>{
     </View>
   );
 };
+// Styles for the MainScreen
 
 const styles = StyleSheet.create({
   container: {
